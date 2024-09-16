@@ -1,0 +1,29 @@
+
+#uploadForm {
+    display: flex;
+    flex-direction: column;
+}
+input[type="file"] {
+    margin-bottom: 1rem;
+}
+#uploadStatus {
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+.container{
+    position: relative;
+    &:hover{
+        span{
+            opacity: 1;
+        }
+    }
+    span{
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        opacity: 0;
+        transition: .3s;
+        cursor: pointer;
+    }
+}
