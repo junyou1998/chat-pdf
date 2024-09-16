@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 上傳 RAG處理</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/pdfUpload.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+    <div class="container">
+        <a href="/">
+            <span class="material-symbols-outlined">
+                home
+            </span>
+        </a>
+        <h1>PDF 上傳處理</h1>
+        <form id="uploadForm">
+            <input type="file" id="pdfFile" accept=".pdf" required>
+            <button class="button" type="submit">上傳 PDF</button>
+        </form>
+        <div id="uploadStatus"></div>
+    </div>
+
+    <script src="/js/pdfUpload.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
+
+*{
+    box-sizing: border-box;
+    font-family: "Noto Sans TC", sans-serif;
+
+}
+html,
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #EFEEE6;
+    height: 100vh;
+}
