@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="/css/chatPDF.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf_viewer.min.css">
+    <style>
+        
+    </style>
 </head>
 
 <body>
@@ -22,34 +27,61 @@
         </a>
         <h1>PDF 提問</h1>
         <h3>選擇pdf向量資料</h3>
-        <ul>
-            <li v-for="(collection, index) in collections">
-                <input type="radio" name="collection" :id="'collection'+
-            index" :value="collection.name" v-model="pickedCollection">
-                <label :for="'collection'+
-                index">{{collection.name}}</label>
-
-            </li>
-        </ul>
-        選擇的資料集:
-        {{pickedCollection}}
-
-        <input type="text" v-model="query" placeholder="什麼是GOAL？">
-        <button class="button" @click="ragQuery">送出問題</button>
-        <div class="chat">
-            <div class="query" v-if="user">
-                {{ user }}
+        <div class="content">
+            <div class="pdf-list">
+                <div class="upload-area">
+                    <div id="uploadForm">
+                        <input type="file" id="pdfFile" accept=".pdf" required>
+                        <button class="button" @click="uploadPDF">上傳 PDF</button>
+                    </div>
+                    <div id="uploadStatus"></div>
+                </div>
+                <ul>
+                    <li v-for="(collection, index) in collections">
+                        <input type="radio" name="collection" :id="'collection'+
+                    index" :value="collection" v-model="pickedCollection">
+                        <label :for="'collection'+
+                        index">{{collection.fullName}}</label>
+                    </li>
+                </ul>
             </div>
-            <div class="loader" :class="user&&!answer ? 'loading':''">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+            <div class="pdf-viewer">
+                <div id="pdf-container"></div>
             </div>
-            <div class="answer" v-if="answer">
-                {{ answer?.kwargs?.content}}
+            <div class="chat-area">
+                選擇的資料集:
+                <div v-if="pickedCollection">
+        
+                    {{pickedCollection.name}}
+                    <!-- {{pickedCollection}} -->
+                </div>
+        
+                <input type="text" v-model="query" placeholder="什麼是GOAL？">
+                <button class="button" @click="ragQuery">送出問題</button>
+                <div class="chat">
+                    <div class="query" v-if="user">
+                        {{ user }}
+                    </div>
+                    <div class="loader" :class="user&&!answer ? 'loading':''">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="answer" v-if="answer">
+                        {{ answer?.kwargs?.content}}
+                    </div>
+                </div>
             </div>
         </div>
+
+        
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.worker.min.js';
+    </script>
+
     <script src="/js/chatPDF.js"></script>
 </body>
 

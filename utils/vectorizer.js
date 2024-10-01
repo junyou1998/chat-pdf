@@ -3,6 +3,8 @@ import { OllamaEmbeddings } from "@langchain/ollama";
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { ollamaService, chromaService } from "../config/environments/development.js";
+import crypto from 'crypto';
+
 
 export async function vectorizer(filePath) {
     // load
@@ -23,7 +25,8 @@ export async function vectorizer(filePath) {
         baseUrl: ollamaService.url, // Default value
     });
 
-    const collectionName = filePath.split("/").pop().split(".")[0];
+    // const collectionName = filePath.split("/").pop().split(".")[0];
+    const collectionName = crypto.randomUUID();
 
     const vectorStore = new Chroma(embeddings, {
         collectionName: `${collectionName}`,
@@ -36,7 +39,9 @@ export async function vectorizer(filePath) {
     // store
     const saveToVectorStore = await vectorStore.addDocuments(splits);
 
+
+
     console.log("完成向量儲存", saveToVectorStore);
 
-    return saveToVectorStore;
+    return {...saveToVectorStore, collection: collectionName};
 }
